@@ -1,4 +1,1 @@
-jump-start
-==========
-
-Front-end dev quick start
+Includes everything to painlessly start developing frontend with stylus, es6 & jade
