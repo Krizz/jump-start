@@ -1,0 +1,27 @@
+{
+  "name": "gulptest",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^1.1.2",
+    "browserify": "^4.2.0",
+    "es6ify": "^1.2.0",
+    "gulp": "^3.8.5",
+    "gulp-dot": "^1.5.0",
+    "gulp-jade": "^0.6.1",
+    "gulp-plumber": "^0.6.3",
+    "gulp-stylus": "0.0.14",
+    "gulp-uglify": "^0.3.1",
+    "gulp-util": "^2.2.19",
+    "jquery": "^2.1.1",
+    "lodash": "^2.4.1",
+    "nib": "^1.0.2",
+    "vinyl-source-stream": "^0.1.1"
+  }
+}
