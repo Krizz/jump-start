@@ -1,13 +1,16 @@
-var browserify = require('gulp-browserify');
+var browserify = require('browserify');
 var es6ify = require('es6ify');
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var gutil = require('gulp-util');
 var jade = require('gulp-jade');
 var plumber = require('gulp-plumber');
-var stylus = require('gulp-stylus');
 var uglify = require('gulp-uglify');
+var less = require('gulp-less');
 var browserSync = require('browser-sync');
+var prefix = require('gulp-autoprefixer');
+var path = require('path');
+
 
 var shim = {
 
@@ -22,16 +25,13 @@ gulp.task('compress', function() {
 });
 
 gulp.task('scripts', function () {
-  gulp.src('./src/js/app.js')
-    //.pipe(es6transpiler())
-    .pipe(browserify({
-      insertGlobals : true,
-      debug : false,
-      //transform: ['es6ify'],
-      shim: shim
-    }))
-    .on('error', gutil.log)
-    .pipe(gulp.dest('dist/js/'));
+  browserify('./src/js/app.js')
+    //.transform(reactify)
+    //add(es6ify.runtime)
+    .transform(es6ify)
+    .bundle()
+    .pipe(source('app.js'))
+    .pipe(gulp.dest('./dist/js/'));
 });
 
 gulp.task('jade', function () {
@@ -49,15 +49,12 @@ gulp.task('jade', function () {
 });
 
 gulp.task('styles', function () {
-  gulp.src('./src/styles/**/*.styl')
-    .pipe(stylus({
-      use: ['nib'],
-      set:[
-        //'compress',
-        'include css'
-      ]
+  gulp.src('./src/styles/style.less')
+    .pipe(less({
+      paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
     .on('error', gutil.log)
+    .pipe(prefix())
     .pipe(gulp.dest('./dist/styles'))
     .pipe(browserSync.reload({stream:true}));
 });
@@ -65,9 +62,9 @@ gulp.task('styles', function () {
 // Static server
 gulp.task('browser-sync', function() {
     browserSync.init(null, {
-        server: {
-            baseDir: "./dist/"
-        }
+      server: {
+        baseDir: "./dist/"
+      }
     });
 });
 
@@ -76,7 +73,7 @@ gulp.task('browser-sync', function() {
 gulp.task('watch', function() {
   gulp.watch(['./src/js/app.js'], ['scripts']);
   gulp.watch(['src/**/*.jade'], ['jade']);
-  gulp.watch(['src/**/*.styl'], ['styles']);
+  gulp.watch(['src/**/*.less'], ['styles']);
 });
 
 gulp.task('default', ['scripts', 'jade', 'styles', 'watch', 'browser-sync'])

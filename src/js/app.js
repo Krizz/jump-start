@@ -1,3 +1,4 @@
 var math = require('./lib/math');
+var $ = require('jquery');
 
-console.log(math(2, 3));
+console.log($);
