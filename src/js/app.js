@@ -1,4 +1,11 @@
+var Hello = require('./hello');
 var math = require('./lib/math');
 var $ = require('jquery');
+var React = require('react');
 
-console.log($);
+React.renderComponent(
+  Hello({
+    name: 'World!'
+  }),
+  $('#hello').get(0)
+)

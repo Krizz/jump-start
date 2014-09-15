@@ -10,11 +10,7 @@ var less = require('gulp-less');
 var browserSync = require('browser-sync');
 var prefix = require('gulp-autoprefixer');
 var path = require('path');
-
-
-var shim = {
-
-};
+var reactify = require('reactify');
 
 es6ify.traceurOverrides = { blockBinding: true };
 
@@ -26,12 +22,14 @@ gulp.task('compress', function() {
 
 gulp.task('scripts', function () {
   browserify('./src/js/app.js')
-    //.transform(reactify)
+    .transform(reactify)
     //add(es6ify.runtime)
-    .transform(es6ify)
+    //.transform(es6ify)
     .bundle()
+    .on('error', gutil.log)
     .pipe(source('app.js'))
-    .pipe(gulp.dest('./dist/js/'));
+    .pipe(gulp.dest('./dist/js/'))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('jade', function () {

@@ -26,12 +26,25 @@
     "jquery": "^2.1.1",
     "lodash": "^2.4.1",
     "nib": "^1.0.3",
+    "react": "^0.11.1",
+    "reactify": "^0.14.0",
     "vinyl-source-stream": "^0.1.1"
   },
   "browserify": {
-    "transform": [ "browserify-shim" ]
+    "transform": [
+      [
+        "browserify-shim"
+      ],
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
+    ]
   },
   "browserify-shim": {
-    "./bower_components/jquery/dist/jquery.js": "$"
+    "./bower_components/jquery/dist/jquery.js": "$",
+    "./bower_components/react/react.js": "react"
   }
 }
