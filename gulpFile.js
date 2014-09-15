@@ -1,5 +1,4 @@
-// browserify
-var browserify = require('browserify');
+var browserify = require('gulp-browserify');
 var es6ify = require('es6ify');
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
@@ -10,6 +9,9 @@ var stylus = require('gulp-stylus');
 var uglify = require('gulp-uglify');
 var browserSync = require('browser-sync');
 
+var shim = {
+
+};
 
 es6ify.traceurOverrides = { blockBinding: true };
 
@@ -20,17 +22,16 @@ gulp.task('compress', function() {
 });
 
 gulp.task('scripts', function () {
-  return browserify('./src/js/app.js')
-    //.add(es6ify.runtime)
-    .transform(es6ify)
-    .bundle({
-      debug: true
-    })
+  gulp.src('./src/js/app.js')
+    //.pipe(es6transpiler())
+    .pipe(browserify({
+      insertGlobals : true,
+      debug : false,
+      //transform: ['es6ify'],
+      shim: shim
+    }))
     .on('error', gutil.log)
-    .pipe(source('app.js'))
-    //.pipe(streamify(uglify()))
-    .pipe(gulp.dest('./dist/js'))
-    .pipe(browserSync.reload({stream:true, once: true}));
+    .pipe(gulp.dest('dist/js/'));
 });
 
 gulp.task('jade', function () {
@@ -56,6 +57,7 @@ gulp.task('styles', function () {
         'include css'
       ]
     }))
+    .on('error', gutil.log)
     .pipe(gulp.dest('./dist/styles'))
     .pipe(browserSync.reload({stream:true}));
 });
@@ -77,4 +79,4 @@ gulp.task('watch', function() {
   gulp.watch(['src/**/*.styl'], ['styles']);
 });
 
-gulp.task('default', ['scripts', 'jade', 'watch', 'browser-sync'])
+gulp.task('default', ['scripts', 'jade', 'styles', 'watch', 'browser-sync'])
