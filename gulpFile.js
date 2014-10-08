@@ -10,7 +10,7 @@ var less = require('gulp-less');
 var browserSync = require('browser-sync');
 var prefix = require('gulp-autoprefixer');
 var path = require('path');
-var reactify = require('reactify');
+var watchify = require('watchify');
 
 es6ify.traceurOverrides = { blockBinding: true };
 
@@ -20,16 +20,41 @@ gulp.task('compress', function() {
     .pipe(gulp.dest('dist'))
 });
 
-gulp.task('scripts', function () {
+gulp.task('scriptss', function () {
+  /*
   browserify('./src/js/app.js')
-    .transform(reactify)
-    //add(es6ify.runtime)
-    //.transform(es6ify)
     .bundle()
     .on('error', gutil.log)
     .pipe(source('app.js'))
     .pipe(gulp.dest('./dist/js/'))
     .pipe(browserSync.reload({stream:true}));
+  */
+
+
+});
+
+gulp.task('scripts', function() {
+  var src = './src/js/app.js';
+  var dest = './dist/js/';
+
+  var bundler = watchify(browserify(es6ify.runtime, watchify.args));
+  bundler.add(src);
+  // Optionally, you can apply transforms
+  // and other configuration options on the
+  // bundler just as you would with browserify
+  //bundler.transform('brfs');
+
+  bundler.on('update', rebundle);
+  function rebundle() {
+    return bundler.bundle()
+      // log errors if they happen
+      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+      .pipe(source('app.js'))
+      .pipe(gulp.dest('./dist/js/'))
+      .pipe(browserSync.reload({stream:true, once: true}));
+  }
+
+  return rebundle();
 });
 
 gulp.task('jade', function () {
@@ -61,7 +86,7 @@ gulp.task('styles', function () {
 gulp.task('browser-sync', function() {
     browserSync.init(null, {
       server: {
-        baseDir: "./dist/"
+        baseDir: './dist/'
       }
     });
 });

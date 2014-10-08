@@ -28,19 +28,11 @@
   },
   "browserify": {
     "transform": [
-      [
-        "browserify-shim"
-      ],
-      [
-        "reactify",
-        {
-          "es6": true
-        }
-      ]
+      "browserify-shim",
+      "es6ify"
     ]
   },
   "browserify-shim": {
-    "./bower_components/jquery/dist/jquery.js": "$",
-    "./bower_components/react/react.js": "react"
+    "./bower_components/jquery/dist/jquery.js": "$"
   }
 }
