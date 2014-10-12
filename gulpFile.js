@@ -39,11 +39,6 @@ gulp.task('scripts', function() {
 
   var bundler = watchify(browserify(es6ify.runtime, watchify.args));
   bundler.add(src);
-  // Optionally, you can apply transforms
-  // and other configuration options on the
-  // bundler just as you would with browserify
-  //bundler.transform('brfs');
-
   bundler.on('update', rebundle);
   function rebundle() {
     return bundler.bundle()

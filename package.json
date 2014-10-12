@@ -24,7 +24,8 @@
     "gulp-util": "*",
     "jquery": "*",
     "lodash": "*",
-    "vinyl-source-stream": "*"
+    "vinyl-source-stream": "*",
+    "watchify": "^2.0.0"
   },
   "browserify": {
     "transform": [
