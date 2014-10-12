@@ -11,6 +11,7 @@ var browserSync = require('browser-sync');
 var prefix = require('gulp-autoprefixer');
 var path = require('path');
 var watchify = require('watchify');
+var spritesmith = require('gulp.spritesmith');
 
 es6ify.traceurOverrides = { blockBinding: true };
 
@@ -20,17 +21,14 @@ gulp.task('compress', function() {
     .pipe(gulp.dest('dist'))
 });
 
-gulp.task('scriptss', function () {
-  /*
-  browserify('./src/js/app.js')
-    .bundle()
-    .on('error', gutil.log)
-    .pipe(source('app.js'))
-    .pipe(gulp.dest('./dist/js/'))
-    .pipe(browserSync.reload({stream:true}));
-  */
 
 
+gulp.task('sprite', function () {
+  var spriteData = gulp.src('./src/images/*.png').pipe(spritesmith({
+    imgName: 'sprite.png',
+    cssName: 'sprite.css'
+  }));
+  spriteData.pipe(gulp.dest('./dist/images'));
 });
 
 gulp.task('scripts', function() {
@@ -92,6 +90,7 @@ gulp.task('watch', function() {
   gulp.watch(['./src/js/app.js'], ['scripts']);
   gulp.watch(['src/**/*.jade'], ['jade']);
   gulp.watch(['src/**/*.less'], ['styles']);
+  gulp.watch(['src/images/**/*.png'], ['sprite']);
 });
 
-gulp.task('default', ['scripts', 'jade', 'styles', 'watch', 'browser-sync'])
+gulp.task('default', ['scripts', 'sprite', 'jade', 'styles', 'watch', 'browser-sync'])
