@@ -76,11 +76,11 @@ gulp.task('styles', function () {
 
 // Static server
 gulp.task('browser-sync', function() {
-    browserSync.init(null, {
-      server: {
-        baseDir: './dist/'
-      }
-    });
+  browserSync.init(null, {
+    server: {
+      baseDir: './dist/'
+    }
+  });
 });
 
 

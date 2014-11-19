@@ -30,10 +30,12 @@
   "browserify": {
     "transform": [
       "browserify-shim",
-      "es6ify"
     ]
   },
+  "browser": {
+    "jquery": "./bower_components/jquery/dist/jquery.js"
+  },
   "browserify-shim": {
-    "./bower_components/jquery/dist/jquery.js": "$"
+    "jquery": "$"
   }
 }
