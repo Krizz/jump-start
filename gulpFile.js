@@ -95,4 +95,4 @@ gulp.task('watch', function() {
   gulp.watch(['src/images/**', 'src/fonts/**'], ['copy-assets']);
 });
 
-gulp.task('default', ['scripts', 'jade', 'styles', 'watch', 'browser-sync'])
+gulp.task('default', ['copy-assets', 'scripts', 'jade', 'styles', 'watch', 'browser-sync'])
