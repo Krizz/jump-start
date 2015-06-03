@@ -9,22 +9,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babelify": "*",
     "browser-sync": "*",
     "browserify": "*",
     "gulp": "*",
     "gulp-autoprefixer": "*",
-    "gulp-browserify": "*",
     "gulp-jade": "*",
-    "gulp-less": "*",
-    "gulp-plumber": "*",
     "gulp-stylus": "*",
-    "gulp-uglify": "*",
     "gulp-util": "*",
+    "jadeify": "*",
     "jquery": "*",
     "lodash": "*",
     "nib": "^1.0.4",
     "vinyl-source-stream": "*",
-    "watchify": "^2.0.0"
+    "watchify": "^2.0.0",
+    "whatwg-fetch": "^0.8.2"
   },
   "devDependencies": {
     "gulp-stylus": "^1.3.4"
