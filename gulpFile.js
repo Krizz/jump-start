@@ -3,7 +3,6 @@ var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var gutil = require('gulp-util');
 var jade = require('gulp-jade');
-var uglify = require('gulp-uglify');
 var browserSync = require('browser-sync');
 var prefix = require('gulp-autoprefixer');
 var riotify = require('riotify');
@@ -13,11 +12,6 @@ var watchify = require('watchify');
 var babel = require('babelify');
 var nib = require('nib');
 var jadeify = require('jadeify');
-gulp.task('compress', function() {
-  gulp.src('lib/*.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('dist'))
-});
 
 gulp.task('copy-assets', function() {
   gulp.src('./src/fonts/**', {base: './src'})

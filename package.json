@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp"
   },
   "author": "",
   "license": "ISC",
@@ -20,12 +21,11 @@
     "jadeify": "*",
     "jquery": "*",
     "lodash": "*",
-    "nib": "^1.0.4",
+    "nib": "*",
+    "riot": "*",
+    "riotify": "*",
     "vinyl-source-stream": "*",
-    "watchify": "^2.0.0",
-    "whatwg-fetch": "^0.8.2"
-  },
-  "devDependencies": {
-    "gulp-stylus": "^1.3.4"
+    "watchify": "*",
+    "whatwg-fetch": "*"
   }
 }
